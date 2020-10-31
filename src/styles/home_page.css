@@ -1,20 +1,20 @@
 .item-image {
-	max-height: 100px;
-	display: block;
-	margin: 0 auto;
-	padding: 2px;
-	border: 2px solid lightgray;
-	border-radius: 10px;
+  max-height: 100px;
+  display: block;
+  margin: 0 auto;
+  padding: 2px;
+  border: 2px solid lightgray;
+  border-radius: 10px;
 }
 
 .cart-items {
-	border-bottom: 2px solid red;
-	margin-bottom: 2vh;
-	padding-bottom: 2vh;
+  border-bottom: 2px solid red;
+  margin-bottom: 2vh;
+  padding-bottom: 2vh;
 }
 
 #recipients {
-	display: flex;
+  display: flex;
   flex-wrap: nowrap;
 }
 
@@ -53,7 +53,7 @@ input[type=checkbox] {
 }
 
 #form-flex {
-	display: flex;
+  display: flex;
   flex-wrap: nowrap;
   align-items: center;
 }

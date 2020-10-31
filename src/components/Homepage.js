@@ -6,10 +6,6 @@ import "../styles/home_page.css";
 
 import * as persistItems from "../store/ducks/items.duck";
 
-
-
-
-
 const Homepage = ({
 	items,
 	...props
@@ -50,7 +46,6 @@ const Homepage = ({
 								id="cart_type_desc"
 								type="checkbox"
 								name="cart_type_desc"
-								placeholder="Search for something"
 								checked={cartTypeDesc}
 								onChange={(e) => {
 									setCartTypeDesc(!cartTypeDesc);
@@ -66,7 +61,6 @@ const Homepage = ({
 								id="cart_title"
 								type="checkbox"
 								name="cart_title"
-								placeholder="Search for something"
 								checked={cartTitle}
 								onChange={(e) => {
 									setCartTitle(!cartTitle);
@@ -74,6 +68,21 @@ const Homepage = ({
 							/>
 							<label htmlFor="cart_title">
 								Cart Title
+							</label>
+						</div>
+
+						<div className="form-control">
+							<input
+								id="product_name"
+								type="checkbox"
+								name="product_name"
+								checked={productName}
+								onChange={(e) => {
+									setProductName(!productName);
+								}}
+							/>
+							<label htmlFor="product_name">
+								Product Name
 							</label>
 						</div>
 					</div>
@@ -92,14 +101,20 @@ const Homepage = ({
 
 						{cart.cart_items.map((cart_item, cart_item_index) => {
 
+							if(!Boolean(cart_item.cart_quantity.length)) {
+								return null; //remove this to see cart with no item
+							}
+
 							if(Boolean(searchForm) && cartTitle && !cart_item.collection_data.title.toLowerCase().match(searchForm)) return null;
 
 							return (
-								<div key={cart_item_index} className="cart-items">
+								<div key={cart_item_index}>
 									
-									<p style={{ textAlign: "center" }}>Cart Items</p>
 
 									{cart_item.cart_quantity.length ? cart_item.cart_quantity.map((cart_quantity_values, cart_quantity_index) => {
+
+										if(Boolean(searchForm) && productName && !((cart_quantity_values.product_info ?? {}).title ?? "").toLowerCase().match(searchForm)) return null;
+
 
 										let prod_image_src = "";
 
@@ -109,7 +124,8 @@ const Homepage = ({
 										});
 
 										return (
-											<div key={cart_quantity_index}>
+											<div key={cart_quantity_index} className="cart-items">
+												<p style={{ textAlign: "center" }}>Cart Items</p>
 												<div className="row">
 													<div className="col-lg-2 col-sm-12">
 														{prod_image_src ? 
@@ -142,8 +158,6 @@ const Homepage = ({
 																	<p>
 																		<span>{ cart_item.cart_currency } </span>
 																		<span>
-																			{ /*parseInt(parseInt(recipients_quantity_value.quantity) * (recipients_quantity_value.recipients ?? []).length * (cart_quantity_values.product_info ?? {}).price ? parseInt((cart_quantity_values.product_info ?? {}).price) : 0).toFixed(2)*/ }
-
 																			{
 																				(parseInt(recipients_quantity_value.quantity) * 
 																				(recipients_quantity_value.recipients ?? []).length *
@@ -204,9 +218,9 @@ const Homepage = ({
 }
 
 const mapStateToProps = ({ 
-  items: { items }
+  items: { items },
 }) => ({
-  items
+  items,
 });
 
 export default connect(mapStateToProps, persistItems.actions)(Homepage);

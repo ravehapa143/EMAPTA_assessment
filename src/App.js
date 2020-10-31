@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Homepage from "./components/Homepage.js"
+import Commerce from "./components/Commerce.js"
 
 
 const App = ({
@@ -14,6 +15,7 @@ const App = ({
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Homepage} />
+          <Route exact path="/commerce" component={Commerce} />
         </Switch>
       </BrowserRouter>
     </Provider>

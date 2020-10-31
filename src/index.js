@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from "./store/store";
+import store, { persistor } from "./store/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App store={store} />
+    <App 
+    	store={store}
+    	persistor={persistor}
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );
